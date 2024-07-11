@@ -1,0 +1,140 @@
+<div>
+    <div id="graph">
+        <div class="expenseChart">
+            <canvas id="myChart"></canvas>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var data = JSON.parse('{{ yearData|escapejs }}');
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            data: data.values,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: .5
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="expenseChart">
+            <canvas id="chart2"></canvas>
+            <script>
+                var ctx = document.getElementById('chart2').getContext('2d');
+                var data = JSON.parse('{{ monthData|escapejs }}');
+                var chart2 = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                            {
+                                type: 'line',
+                                data: data.values,
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(255, 99, 132, 1)'
+                                ],
+                                borderWidth: 2,
+                                fill: false
+                            },
+                            {
+                                type: 'bar',
+                                data: data.values,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(255, 99, 132, 1)'
+                                ],
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Summery</h5>
+                    <p class="card-text">
+                    <table class="table table-success table-striped">
+                        <tr>
+                            <td><span id="today"></span></td>
+                            <td><span>{{ dayCost }}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span id="month"></span></td>
+                            <td><span>{{ monthCost }}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span id="week"></span></td>
+                            <td><span>{{ weekCost }}</span></td>
+                        </tr>
+                    </table>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script>
+            var today = new Date();
+
+            var day = today.getDate();
+            var monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(today);
+            var year = today.getFullYear();
+            var formattedDate = day + '-' + monthName + '-' + year;
+
+            var startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            var weekNumber = Math.ceil((today.getDate() + startOfMonth.getDay()) / 7);
+
+            document.getElementById('today').innerHTML = formattedDate;
+            document.getElementById('month').innerHTML = monthName;
+            document.getElementById('week').innerHTML = 'Week ' + weekNumber;
+        </script>
+    </div>
+</div>

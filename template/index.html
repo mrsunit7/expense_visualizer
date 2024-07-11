@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% include "Base/navBar.html" %}
+    <div class="container" style="margin-top: 6rem;margin-left: 1px;">
+        <div id="content-placeholder">
+            {% include "Base/"|add:page %}
+        </div>
+    </div>
+</body>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    AOS.init();
+
+    // Function to load content dynamically without refreshing the page
+    function loadContent(page) {
+        $.ajax({
+            url: "/",
+            type: "GET",
+            data: { page: page },
+            success: function(response) {
+                $('#content-placeholder').html(response);
+                AOS.refresh();  // Re-initialize AOS if needed
+            },
+            error: function(xhr, status, error) {
+                console.error("Error loading content:", error);
+            }
+        });
+    }
+
+    // Example usage: Call loadContent with the desired page
+    // loadContent("my_template.html");
+</script>
+</html>

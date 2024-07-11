@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="card costCard">
+        <div class="card-header containHeader">
+            YOUR EXPENSES
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>Insert Your daily Cost</p>
+                <footer class="blockquote-footer">Note Your every time cost</footer>
+            </blockquote>
+            <p class="card-text">
+                <form action="/expenseAdd/" method="post" id="quoteForm">
+                    {% csrf_token %}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">&#8377;</span>
+                        <input type="text" class="form-control inputFormData" placeholder="1200" aria-label="Cost" aria-describedby="addon-wrapping" name="cost" id="cost">
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Type</span>
+                        <select class="form-select inputFormData" aria-label="Type" name="type" id="type">
+                            <option value="" selected disabled hidden>Select type</option>
+                            <option value="travel">Travel</option>
+                            <option value="food">Food</option>
+                            <option value="bill">Bill</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group flex-nowrap d-flex flex-row-reverse">
+                        <button type="submit" id="submitBtn" disabled class="btn btn-secondary">SUBMIT</button>
+                    </div>
+                </form>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function isValidCost(cost) {
+        var regex = /^[-+]?[0-9]*\.?[0-9]+$/;
+        return regex.test(cost);
+    }
+
+    function toggleSubmitButton() {
+        var cost = document.getElementById("cost").value.trim();
+        var type = document.getElementById("type").value.trim();
+
+        if (isValidCost(cost) && type !== ""){
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("submitBtn").classList.replace("btn-secondary","btn-info");
+        } else {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("submitBtn").classList.replace("btn-info","btn-secondary");
+        }
+    }
+    document.getElementById("cost").addEventListener("input", toggleSubmitButton);
+    document.getElementById("type").addEventListener("change", toggleSubmitButton);
+</script>

@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo Bhai");
+@import url("https://fonts.googleapis.com/css2?family=Alkatra&display=swap");
+
+html {
+  overflow-x: hidden;
+}
+.pagebg {
+  position: relative;
+  padding-left: 5%;
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+input:disabled {
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+input:disabled ~ .control__indicator:after {
+  border-color: #7b7b7b;
+}
+
+input:checked:focus {
+  border: none;
+}
+
+input:active {
+  filter: brightness(90%);
+}
+
+input:focus {
+  border-color: transparent;
+  outline: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  color: #212529;
+  text-decoration: none;
+}
+
+.col-md-7 {
+  box-shadow: 2px 3px rgba(0, 0, 0, 0.751);
+  transition: all 0.3s ease;
+  padding: 20px;
+  background: rgb(113, 0, 57);
+  background: linear-gradient(
+    118deg,
+    rgba(113, 0, 57, 0.9585959383753502) 0%,
+    rgba(9, 9, 121, 1) 66%,
+    rgba(0, 179, 153, 1) 100%
+  );
+  color: aliceblue;
+  border-radius: 10px;
+  width: 350px !important;
+  height: 450px !important;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.col-md-7 form {
+  padding: 20px;
+  text-align: left;
+}
+
+.col-md-7 form button {
+  margin-left: 70%;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.751);
+  background-color: rgb(1, 219, 146);
+  color: black;
+}
+
+.page_title {
+  background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.form-group {
+  padding: 10px;
+}
+
+@media screen and (max-width: 500px) {
+  .col-md-7 {
+    width: 320px !important;
+  }
+
+  .pagebg {
+    position: relative;
+    padding-left: 5%;
+    margin-top: -2rem;
+  }
+  .loginBody{
+    margin-top: 2rem;
+  }
+}
